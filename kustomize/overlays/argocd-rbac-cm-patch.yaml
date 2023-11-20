@@ -1,0 +1,24 @@
+# - op: replace
+#   path: /data
+#   value:
+#     policy.default: role:readonly
+#     policy.csv: |
+#       p, role:sre, applications, *, lab/*, deny
+#       p, role:sre, applications, get, lab/*, allow
+
+#       p, role:sre, applications, *, */*, allow
+#       p, role:sre, clusters, get, *, allow    
+#       p, role:sre, repositories, get, *, allow    
+
+#       p, role:aoc, applications, action/apps/Deployment/restart, */*, allow
+
+#       g, ncr-digital-banking:DBK-AOC-TEAM, role:aoc
+
+#       g, role:developer, role:readonly
+#       g, ncr-digital-banking:All_DI_GitHub_Users, role:developer
+
+#       g, ncr-digital-banking:dbk-sre-transform, role:sre
+#       g, ncr-digital-banking:dbk-sre-replatform, role:sre
+#       g, ncr-digital-banking:ncr-dbk-sre, role:sre
+#       g, ncr-digital-banking:dbk-sre-admin, role:sre
+

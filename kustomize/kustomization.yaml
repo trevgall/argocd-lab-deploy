@@ -1,0 +1,39 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- github.com/argoproj/argo-cd/manifests/cluster-install?ref=v2.9.1
+- base/projects/lab.yaml
+- base/apps/lab.yaml
+patches:
+# This section below inherited from DI - not sure if I need it here ... ? 
+# - target:
+#     kind: Service
+#     name: argocd-server
+#   patch: |-
+#     - op: replace
+#       path: /spec/ports
+#       value: [{ "name": "https", "protocol": "TCP", "port": 8080, "targetPort": 8080, "nodePort": 32700}]
+#     - op: replace
+#       path: /spec/type
+#       value: NodePort
+# argocd-cm overlay looks to be concerned with github secrets ... may need this... ? 
+# - target:
+#     version: v1
+#     kind: ConfigMap
+#     name: argocd-cm
+#   path: overlays/argocd-cm-patch.yaml
+# argocd-rbac-cm overlay was to restrict user group access levels, not required here .. 
+# - target:
+#     version: v1
+#     kind: ConfigMap
+#     name: argocd-rbac-cm
+#   path: overlays/argocd-rbac-cm-patch.yaml
+# Alex : We don't want the default, empty, argocd-secret so just rename it to get it out of the way
+# ... not sure why, so commenting out here to see what happens ... 
+# - target:
+#     kind: Secret
+#     name: argocd-secret
+#   patch: |-
+#     - op: replace
+#       path: /metadata/name
+#       value: argocd-empty-secret

@@ -1,0 +1,28 @@
+# - op: replace
+#   path: /data
+#   value:
+#     url: https://argocd-lab.dbk.ncr.com
+#     dex.config: |
+#       connectors:
+#       # GitHub OAuth
+#         - type: github
+#           id: github
+#           name: GitHub
+#           config:
+#             # These reference secret keys in the argocd-secret resource (argo does some magic to resolve these)
+#             # That secret is on the secrets folder (encrypted by sops)
+#             # The GH workflow decrypts the secret and puts it in the argocd namespace
+#             clientID: $github.clientId
+#             clientSecret: $github.clientSecret
+#             orgs:
+#               - name: ncr-digital-banking
+#     users.anonymous.enabled: "false"
+#     resource.customizations: |
+#       kyverno.io/ClusterPolicy:
+#         ignoreDifferences: |
+#           jqPathExpressions:
+#           - .spec.rules[] | select(.name|test("autogen-.*"))
+#       kyverno.io/Policy:
+#         ignoreDifferences: |
+#           jqPathExpressions:
+#           - .spec.rules[] | select(.name|test("autogen-.*"))        

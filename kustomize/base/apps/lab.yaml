@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: lab
+  namespace: argocd
+spec:
+  project: lab
+  source:
+    repoURL: https://github.com/trevgall/argocd-lab-apps.git
+    targetRevision: HEAD
+    path: projects-and-apps
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: argocd
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true 
