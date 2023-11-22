@@ -17,7 +17,7 @@ echo -e `date` "- Wrapper script to deploy ArgoCD into a "argocd" minikube clust
 # Check to make sure the "argocd" kubectl context exists, if so proceed, if not abort 
 if [ 'kubectl config get-contexts | grep argocd' ]; then 
   echo "The argocd kubectl context exists, assuming safe to proceed ... "
-  #kustomize build kustomize/ | kubectl --context argocd -n argocd apply -f -
+  kustomize build kustomize/ | kubectl --context argocd -n argocd apply -f -
 else 
   echo "The argocd kubctl context doesn't exist, please check minikube cluster setup."
 fi
