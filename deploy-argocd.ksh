@@ -22,3 +22,13 @@ if [ 'kubectl config get-contexts | grep argocd' ]; then
 else 
   echo "The argocd kubctl context doesn't exist, please check minikube cluster setup."
 fi
+
+# Post-install cfg 
+
+# Add the connection to gitlab repo with ssh key reference 
+# Assumes user is already loggd in and authenticated to the argocd server 
+# Run the following command to login and authenticate 
+# > argocd login trg.argocd.demo 
+
+argocd repo add git@gitlab.com:trevgall1/python-cicd.git --ssh-private-key-path ~/.ssh/id_ed25519
+
